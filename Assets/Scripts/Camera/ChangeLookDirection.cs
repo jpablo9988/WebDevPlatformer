@@ -27,39 +27,38 @@ public class ChangeLookDirection : MonoBehaviour
 
     // local calculations of bounds which depends on "looking direction".
     private Vector2 localBounds;
+
     private void Start()
     {
         localBounds = transform.localPosition;
     }
-    void Update()
+    public void MoveLookaround(Vector2 direction)
     {
         bool hasMoved = false;
         if (moveX)
         {
             hasMoved = true;
-            float direction = Input.GetAxisRaw("Horizontal"); ;
             if (!xReset)
             {
-                if (direction != 0)
-                    localBounds.x = bounds.x * direction;
+                if (direction.x != 0)
+                    localBounds.x = bounds.x * direction.x;
             }
             else
             {
-                localBounds.x = bounds.x * direction;
+                localBounds.x = bounds.x * direction.x;
             }
         }
         if (moveY)
         {
             hasMoved = true;
-            float direction = Input.GetAxisRaw("Vertical"); ;
             if (!yReset)
             {
-                if (direction != 0)
-                    localBounds.y = bounds.y * direction;
+                if (direction.y != 0)
+                    localBounds.y = bounds.y * direction.y;
             }
-            else 
+            else
             {
-                localBounds.y = bounds.y * direction;
+                localBounds.y = bounds.y * direction.y;
             }
         }
         if (hasMoved)
