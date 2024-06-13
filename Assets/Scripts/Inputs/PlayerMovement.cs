@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnLanding()
     {
-        animator.SetBool("IsGrounded", false);
+        animator.SetBool("IsJumping", false);
     }
 
     private void Flip()
@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             player.velocity = new Vector2(player.velocity.x, jumpSpeed);
-            animator.SetBool("IsGrounded", true);
+            animator.SetBool("IsJumping", true);
         }
     }
 
