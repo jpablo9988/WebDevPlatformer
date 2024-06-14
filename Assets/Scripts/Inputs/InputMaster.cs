@@ -28,4 +28,11 @@ public class InputMaster : SingletonClass<InputMaster>
             manager.ActivateControls(!pausing);
         }
     }
+    public void KillInputs()
+    {
+        foreach (IControlInput manager in inputManagers)
+        {
+            manager.KillControls();
+        }
+    }
 }

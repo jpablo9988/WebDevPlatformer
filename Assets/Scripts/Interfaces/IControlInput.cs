@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IControlInput
 {
     public void ActivateControls(bool activate);
+    public void KillControls();
 }

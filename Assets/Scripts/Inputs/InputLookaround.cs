@@ -28,4 +28,10 @@ public class InputLookaround : MonoBehaviour, IControlInput
             lookaround.MoveLookaround(movementAxis);
         }
     }
+
+    public void KillControls()
+    {
+        this.gameObject.SetActive(false);
+
+    }
 }

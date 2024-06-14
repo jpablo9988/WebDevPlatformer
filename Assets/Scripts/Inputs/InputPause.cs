@@ -25,4 +25,9 @@ public class InputPause : MonoBehaviour, IControlInput
             pauseManager.PauseGameWithMenu();
         }
     }
+
+    public void KillControls()
+    {
+        this.gameObject.SetActive(false);
+    }
 }

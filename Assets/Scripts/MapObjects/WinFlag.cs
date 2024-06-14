@@ -6,6 +6,9 @@ public class WinFlag : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // - Win Game - //
+        if (collision.CompareTag("Player"))
+        {
+            GameMaster.Instance.WinGame();
+        }
     }
 }

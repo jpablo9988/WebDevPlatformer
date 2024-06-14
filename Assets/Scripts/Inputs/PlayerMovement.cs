@@ -5,11 +5,8 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] 
-    private LayerMask platformLayerMask;
     public float speed = 5f;
     public float jumpSpeed = 8f;
-    private float direction = 0f;
     private Rigidbody2D player;
     public Animator animator;
     private bool facingRight = true;
@@ -18,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     public UnityEvent OnLandEvent;
     private bool isGrounded;
+    [SerializeField]
+    private AudioClip jumpSfx;
 
 
     void Start()
@@ -35,21 +34,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        // Switch the way the player is labelled as facing.
         facingRight = !facingRight;
-
-        // Multiply the player's x local scale by -1.
-        /*
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;*/
-
         sprite.flipX = !facingRight;
 
     }
 
     public void MovePlayer (float direction)
     {
+        animator.SetFloat("Speed", Mathf.Abs(direction));
         player.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (direction > 0f)
         {
@@ -78,44 +70,12 @@ public class PlayerMovement : MonoBehaviour
     }
     public void PlayerJump()
     {
-        player.velocity = new Vector2(player.velocity.x, jumpSpeed);
-        animator.SetBool("IsGrounded", false);
-    }
-
-    void Update()
-    {
-        player.constraints = RigidbodyConstraints2D.FreezeRotation;
-        animator.SetFloat("Speed", Mathf.Abs(direction));
-        direction = Input.GetAxis("Horizontal");
-        if (direction > 0f)
-        {
-            if (!facingRight)
-            {
-                Flip();
-            }
-
-            player.velocity = new Vector2(direction * speed, player.velocity.y);
-
-        }
-        else if (direction < 0f)
-        {
-            if (facingRight)
-            {
-                Flip();
-            }
-
-            player.velocity = new Vector2(direction * speed, player.velocity.y);
-
-        }
-        else
-        {
-            player.velocity = new Vector2(0, player.velocity.y);
-        }
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (isGrounded)
         {
             isGrounded = false;
             player.velocity = new Vector2(player.velocity.x, jumpSpeed);
-            animator.SetBool("IsGrounded", isGrounded);
+            animator.SetBool("IsGrounded", false);
+            GameMaster.Instance.PlaySfx(jumpSfx);
         }
     }
 

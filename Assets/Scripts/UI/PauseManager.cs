@@ -31,4 +31,12 @@ public class PauseManager : MonoBehaviour
         //Stop player inputs here: 
         InputMaster.Instance.PauseInputs(input);
     }
+    public void ResumeGame()
+    {
+        PauseGameWithMenu();
+    }
+    public void ToMainMenu()
+    {
+        //Load Main Menu ... !
+    }
 }

@@ -27,10 +27,10 @@ public class Player : MonoBehaviour
     public void LoseHealth(int amount)
     {
         currHealthPoints -= amount;
-        healthFill.fillAmount = currHealthPoints / maxHealthPoints;
+        healthFill.fillAmount = (float)currHealthPoints / maxHealthPoints;
         if (currHealthPoints <= 0)
         {
-            //
+            GameMaster.Instance.GameOver();
         }
 
     }
