@@ -6,12 +6,14 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] private LayerMask platformLayerMask;
     public float speed = 5f;
     public float jumpSpeed = 8f;
     private float direction = 0f;
     private Rigidbody2D player;
     public Animator animator;
     private bool facingRight = true;
+    private BoxCollider2D boxCollider;
 
     public UnityEvent OnLandEvent;
 
@@ -32,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = theScale;
     }
 
+    
+
 
     void Start()
     {
@@ -45,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         animator.SetFloat("Speed", Mathf.Abs(direction));
+
+        player.constraints = RigidbodyConstraints2D.FreezeRotation;
 
 
 
