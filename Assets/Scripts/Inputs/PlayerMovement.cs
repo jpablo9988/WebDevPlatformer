@@ -15,8 +15,15 @@ public class PlayerMovement : MonoBehaviour
     private bool facingRight = true;
     private BoxCollider2D boxCollider;
 
+    private SpriteRenderer sprite;
+
     public UnityEvent OnLandEvent;
 
+    void Start()
+    {
+        player = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+    }
 
     public void OnLanding()
     {
@@ -29,31 +36,21 @@ public class PlayerMovement : MonoBehaviour
         facingRight = !facingRight;
 
         // Multiply the player's x local scale by -1.
+        /*
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
-        transform.localScale = theScale;
-    }
+        transform.localScale = theScale;*/
 
-    
+        sprite.flipX = !facingRight;
 
-
-    void Start()
-    {
-        player = GetComponent<Rigidbody2D>();
     }
 
 
 
-
-    // Update is called once per frame
     void Update()
     {
-        animator.SetFloat("Speed", Mathf.Abs(direction));
-
         player.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-
-
+        animator.SetFloat("Speed", Mathf.Abs(direction));
         direction = Input.GetAxis("Horizontal");
         if (direction > 0f)
         {
