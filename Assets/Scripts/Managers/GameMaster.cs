@@ -9,6 +9,8 @@ public class GameMaster : SingletonClass<GameMaster>
 
     [SerializeField]
     private PauseManager pauseManager;
+    [SerializeField]
+    private CheckpointManager checkpointManager;
 
     public PauseManager PauseManager
     {
@@ -17,5 +19,10 @@ public class GameMaster : SingletonClass<GameMaster>
         {
             pauseManager = value;
         }
+    }
+    public Checkpoint ActiveCheckpoint
+    {
+        get { return checkpointManager.GetActiveCheckpoint(); }
+        private set { }
     }
 }

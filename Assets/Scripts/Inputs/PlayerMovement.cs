@@ -5,29 +5,32 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField] private LayerMask platformLayerMask;
+    [SerializeField] 
+    private LayerMask platformLayerMask;
     public float speed = 5f;
     public float jumpSpeed = 8f;
     private float direction = 0f;
     private Rigidbody2D player;
     public Animator animator;
     private bool facingRight = true;
-    private BoxCollider2D boxCollider;
 
     private SpriteRenderer sprite;
 
     public UnityEvent OnLandEvent;
+    private bool isGrounded;
+
 
     void Start()
     {
         player = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        isGrounded = true;
     }
 
     public void OnLanding()
     {
-        animator.SetBool("IsJumping", false);
+        isGrounded = true;
+        animator.SetBool("IsGrounded", isGrounded);
     }
 
     private void Flip()
@@ -45,7 +48,39 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void MovePlayer (float direction)
+    {
+        player.constraints = RigidbodyConstraints2D.FreezeRotation;
+        if (direction > 0f)
+        {
+            if (!facingRight)
+            {
+                Flip();
+            }
 
+            player.velocity = new Vector2(direction * speed, player.velocity.y);
+
+        }
+        else if (direction < 0f)
+        {
+            if (facingRight)
+            {
+                Flip();
+            }
+
+            player.velocity = new Vector2(direction * speed, player.velocity.y);
+
+        }
+        else
+        {
+            player.velocity = new Vector2(0, player.velocity.y);
+        }
+    }
+    public void PlayerJump()
+    {
+        player.velocity = new Vector2(player.velocity.x, jumpSpeed);
+        animator.SetBool("IsGrounded", false);
+    }
 
     void Update()
     {
@@ -76,10 +111,11 @@ public class PlayerMovement : MonoBehaviour
         {
             player.velocity = new Vector2(0, player.velocity.y);
         }
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            isGrounded = false;
             player.velocity = new Vector2(player.velocity.x, jumpSpeed);
-            animator.SetBool("IsJumping", true);
+            animator.SetBool("IsGrounded", isGrounded);
         }
     }
 
