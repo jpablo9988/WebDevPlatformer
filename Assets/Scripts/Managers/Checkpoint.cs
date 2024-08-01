@@ -10,12 +10,9 @@ public class Checkpoint : MonoBehaviour
     
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("PlayerEnter");
 
         if (collision.CompareTag("Player"))
-        {
-            Debug.Log("PlayerEnter");
-            RegisterCheckpoint?.Invoke(this);
+        {             RegisterCheckpoint?.Invoke(this);
         }
     }
 }

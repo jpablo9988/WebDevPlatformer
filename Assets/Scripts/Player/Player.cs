@@ -20,18 +20,24 @@ public class Player : MonoBehaviour
     public void FellToPit()
     {
         // Go to current checkpoint's position. 
-        LoseHealth(1);
+        ModifyHealth(-1);
         this.transform.position = GameMaster.Instance.ActiveCheckpoint.transform.position;
     }
 
-    public void LoseHealth(int amount)
+    public void ModifyHealth(int amount)
     {
-        currHealthPoints -= amount;
+        //If it has reached the max, returns.
+        if (currHealthPoints == maxHealthPoints && amount > 0) return;
+        currHealthPoints += amount;
         healthFill.fillAmount = (float)currHealthPoints / maxHealthPoints;
         if (currHealthPoints <= 0)
         {
             GameMaster.Instance.GameOver();
         }
 
+    }
+    public void RestoreAllHealth()
+    {
+        currHealthPoints = maxHealthPoints;
     }
 }
