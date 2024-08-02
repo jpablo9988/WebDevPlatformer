@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     private int maxHealthPoints = 3;
     [SerializeField]
     private Image healthFill;
+    [SerializeField]
+    private PlayerMovement movementManager;
 
     private int currHealthPoints;
 
@@ -39,5 +41,12 @@ public class Player : MonoBehaviour
     public void RestoreAllHealth()
     {
         currHealthPoints = maxHealthPoints;
+    }
+
+    public void AcceleratePlayer(float duration, float speedAdd)
+    {
+        movementManager.AdditiveSpeed(speedAdd);
+        
+        StartCoroutine(GeneralTools.Instance.Timer(duration, movementManager.ResetSpeed));
     }
 }

@@ -18,12 +18,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private AudioClip jumpSfx;
 
+    private float ogSpeed, ogJumpSpeed;
+
 
     void Start()
     {
         player = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         isGrounded = true;
+        ogSpeed = speed;
+        ogJumpSpeed = jumpSpeed;
     }
 
     public void OnLanding()
@@ -77,6 +81,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsGrounded", false);
             GameMaster.Instance.PlaySfx(jumpSfx);
         }
+    }
+    public void ResetSpeed()
+    {
+        speed = ogSpeed;
+        jumpSpeed = ogJumpSpeed;
+    }
+
+    public void AdditiveSpeed(float speedAdd)
+    {
+        speed += speedAdd;
+        jumpSpeed += speedAdd;
     }
 
 }
