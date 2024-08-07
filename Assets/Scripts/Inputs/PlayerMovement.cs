@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float ogSpeed, ogJumpSpeed;
 
+    public MovementJoystick movementJoystick;
+
 
     void Start()
     {
@@ -43,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    public void MovePlayer (float direction)
+    public void MovePlayer (float direction )
     {
         animator.SetFloat("Speed", Mathf.Abs(direction));
         player.constraints = RigidbodyConstraints2D.FreezeRotation;
