@@ -11,5 +11,9 @@ public class Pit : MonoBehaviour
             Player p = collision.GetComponent<Player>();
             p.FellToPit();
         }
+        if (collision.CompareTag("Enemy"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

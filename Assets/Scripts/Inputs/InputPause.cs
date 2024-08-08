@@ -31,6 +31,10 @@ public class InputPause : MonoBehaviour, IControlInput
     {
         this.gameObject.SetActive(false);
     }
+    public void PauseGame()
+    {
+        pauseManager.PauseGameWithMenu();
+    }
     public void SetJoystick(Joystick joystick)
     {
         // -- Unimplemented -- No need for joystick .
