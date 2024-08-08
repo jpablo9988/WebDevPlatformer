@@ -6,7 +6,9 @@ public class InputPlayerMovement : MonoBehaviour, IControlInput
 {
     [SerializeField]
     private PlayerMovement movement;
+    
     private bool activateControls = true;
+    private Joystick joystick;
     public void ActivateControls(bool activate)
     {
         activateControls = activate;
@@ -22,12 +24,32 @@ public class InputPlayerMovement : MonoBehaviour, IControlInput
     {
         if (activateControls)
         {
-            float direction = Input.GetAxis("Horizontal");
+            float direction;
+            if (InputMaster.Instance.MobileControls)
+            {
+                direction = joystick.Horizontal;
+            }
+            else
+            {
+                direction = Input.GetAxis("Horizontal");
+            }
             movement.MovePlayer(direction);
             if (Input.GetButtonDown("Jump"))
             {
                 movement.PlayerJump();
             }
         }
+    }
+    public void Jump()
+    {
+        if (activateControls)
+        {
+            movement.PlayerJump();
+        }
+    }
+
+    public void SetJoystick(Joystick joystick)
+    {
+        this.joystick = joystick;
     }
 }

@@ -9,6 +9,7 @@ public class InputLookaround : MonoBehaviour, IControlInput
 
     private bool activateControls;
     private Vector2 movementAxis;
+    private Joystick joystick;
     private void Awake()
     {
         activateControls = true;
@@ -23,8 +24,16 @@ public class InputLookaround : MonoBehaviour, IControlInput
     {
         if (activateControls)
         {
-            movementAxis.x = Input.GetAxisRaw("Horizontal");
-            movementAxis.y = Input.GetAxisRaw("Vertical");
+            if (InputMaster.Instance.MobileControls)
+            {
+                movementAxis.x = joystick.Horizontal;
+                movementAxis.y = joystick.Vertical;
+            }
+            else
+            {
+                movementAxis.x = Input.GetAxisRaw("Horizontal");
+                movementAxis.y = Input.GetAxisRaw("Vertical");
+            }
             lookaround.MoveLookaround(movementAxis);
         }
     }
@@ -33,5 +42,9 @@ public class InputLookaround : MonoBehaviour, IControlInput
     {
         this.gameObject.SetActive(false);
 
+    }
+    public void SetJoystick(Joystick joystick)
+    {
+        this.joystick = joystick;
     }
 }

@@ -8,6 +8,7 @@ public class InputPause : MonoBehaviour, IControlInput
 
     private PauseManager pauseManager;
 
+
     private void Awake()
     {
         pauseManager = GameMaster.Instance.PauseManager;
@@ -29,5 +30,9 @@ public class InputPause : MonoBehaviour, IControlInput
     public void KillControls()
     {
         this.gameObject.SetActive(false);
+    }
+    public void SetJoystick(Joystick joystick)
+    {
+        // -- Unimplemented -- No need for joystick .
     }
 }

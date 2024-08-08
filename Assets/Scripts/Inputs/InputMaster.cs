@@ -10,12 +10,29 @@ using UnityEngine;
 public class InputMaster : SingletonClass<InputMaster>
 {
     private List<IControlInput> inputManagers;
+    [SerializeField]
+    Joystick joystick;
+    [SerializeField]
+    private bool mobileControls;
+    public bool MobileControls { get { return mobileControls; } private set { mobileControls = value;  } }
 
     protected override void Awake()
     {
         base.Awake();
         inputManagers = GetComponents<IControlInput>().ToList();
-        
+        // -- Setup Scene Joystick -- //
+    }
+
+    private void Start()
+    {
+        PopulateJoystick();
+    }
+    private void PopulateJoystick()
+    {
+        foreach (IControlInput manager in inputManagers)
+        {
+            manager.SetJoystick(this.joystick);
+        }
     }
     /// <summary>
     /// Call this to pause all registeted scripts that are type IControlInput.
