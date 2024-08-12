@@ -19,10 +19,20 @@ public class Player : MonoBehaviour
     private int currHealthPoints;
     private bool isInvinsible = false;
 
+    private Inventory inventory;
+    [SerializeField] private UI_Inventory uiInventory;
+
     private void Start()
     {
         currHealthPoints = maxHealthPoints;
         healthFill.fillAmount = 1;
+
+        inventory = new Inventory();
+        uiInventory.SetInventory(inventory);
+
+        PowerUpWorld.SpawnPowerUpWorld(new Vector3(20, 20), new PowerUp { powerUpType = PowerUp.PowerupType.FasterMovement, amount = 1 });
+        PowerUpWorld.SpawnPowerUpWorld(new Vector3(-20, 20), new PowerUp { powerUpType = PowerUp.PowerupType.SmallHealth, amount = 1 });
+        PowerUpWorld.SpawnPowerUpWorld(new Vector3(0, -20), new PowerUp { powerUpType = PowerUp.PowerupType.BigHealth, amount = 1 });
     }
     public void FellToPit()
     {
