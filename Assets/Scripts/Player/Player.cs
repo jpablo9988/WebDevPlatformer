@@ -57,12 +57,12 @@ public class Player : MonoBehaviour
         
         StartCoroutine(GeneralTools.Instance.Timer(duration, movementManager.ResetSpeed));
     }
-    public void GetHit(int amount, Vector2 enemyPosition)
+    public void GetHit(int amount, Vector2 enemyPosition, Vector2 pushbackIntensity)
     {
         if (!isInvinsible)
         {
             ModifyHealth(amount);
-            movementManager.ApplyImpulse(enemyPosition);
+            movementManager.ApplyImpulse(enemyPosition, pushbackIntensity);
             StartCoroutine(InvinsibleToNormal());
             
         }

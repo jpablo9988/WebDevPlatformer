@@ -24,10 +24,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Get Hit Settings (Impulse)")]
     [SerializeField]
-    private float yMagnitude = 20f;
-    [SerializeField]
-    private float xMagnitude = 20f;
-    [SerializeField]
     private float xMovementDeactiveTimer = 0.8f;
 
     private bool deactivateMovement = false;
@@ -111,21 +107,19 @@ public class PlayerMovement : MonoBehaviour
         return this.sprite;
     }
 
-    public void ApplyImpulse(Vector2 EnemyPosition)
+    public void ApplyImpulse(Vector2 EnemyPosition, Vector2 pushbackIntensity)
     {
-        float xImpulse = this.xMagnitude, yImpulse = this.yMagnitude;
         // -- if x of enemy is > than yours
         if (EnemyPosition.x >= this.transform.position.x)
         {
-            xImpulse *= -1;
+            pushbackIntensity.x *= -1;
         }
         if (EnemyPosition.y >= this.transform.position.y)
         {
-            yImpulse *= -1;
+            pushbackIntensity.y *= -1;
         }
-        Vector2 impulseVector = new (xImpulse, yImpulse);
         StartCoroutine(RestoreControlsOnTimer());
-        player.AddForce(impulseVector, ForceMode2D.Impulse);
+        player.AddForce(pushbackIntensity, ForceMode2D.Impulse);
     }
 
     private IEnumerator RestoreControlsOnTimer()
