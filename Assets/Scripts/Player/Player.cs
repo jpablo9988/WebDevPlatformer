@@ -11,8 +11,13 @@ public class Player : MonoBehaviour
     private Image healthFill;
     [SerializeField]
     private PlayerMovement movementManager;
+    [SerializeField]
+    private float invisiblityTimer = 1.0f;
+    [SerializeField]
+    private float alphaWhenHit = 0.5f;
 
     private int currHealthPoints;
+    private bool isInvinsible = false;
 
     private void Start()
     {
@@ -22,7 +27,10 @@ public class Player : MonoBehaviour
     public void FellToPit()
     {
         // Go to current checkpoint's position. 
-        ModifyHealth(-1);
+        if (!isInvinsible)
+        {
+            ModifyHealth(-1);
+        }
         this.transform.position = GameMaster.Instance.ActiveCheckpoint.transform.position;
     }
 
@@ -48,5 +56,28 @@ public class Player : MonoBehaviour
         movementManager.AdditiveSpeed(speedAdd);
         
         StartCoroutine(GeneralTools.Instance.Timer(duration, movementManager.ResetSpeed));
+    }
+    public void GetHit(int amount, Vector2 enemyPosition)
+    {
+        if (!isInvinsible)
+        {
+            ModifyHealth(amount);
+            movementManager.ApplyImpulse(enemyPosition);
+            StartCoroutine(InvinsibleToNormal());
+            
+        }
+    }
+
+    private IEnumerator InvinsibleToNormal()
+    {
+        // -- modify alpha of spriteRenderer color. -- //
+        isInvinsible = true;
+        Color c = movementManager.GetRenderer().color;
+        c.a = alphaWhenHit;
+        movementManager.GetRenderer().color = c;
+        yield return new WaitForSeconds(invisiblityTimer); // -- wait for X seconds
+        c.a = 1.0f;
+        movementManager.GetRenderer().color = c; // return spriteColor to normal
+        isInvinsible = false;
     }
 }

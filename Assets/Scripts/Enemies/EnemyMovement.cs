@@ -48,14 +48,6 @@ public class EnemyMovement : MonoBehaviour
                 _anim.SetBool("SpotPlayer", true);
             }
         }
-        else
-        {
-            _anim.SetBool("IsMoving", false);
-            if (isSeeking)
-            {
-                _anim.SetBool("SpotPlayer", false);
-            }
-        }
         Vector2 force;
         if (isSeeking)
         {
@@ -104,6 +96,12 @@ public class EnemyMovement : MonoBehaviour
         isOnCooldown = true;
         yield return new WaitForSeconds(jumpCooldownTimer);
         isOnCooldown = false;
+    }
+    public void ChillDownAnim()
+    {
+        _anim.SetBool("IsMoving", false);
+        _anim.SetBool("SpotPlayer", false);
+        
     }
 
 }

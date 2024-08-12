@@ -7150,7 +7150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 1162030206}
-  mobileControls: 1
+  mobileControls: 0
 --- !u!4 &1194488829
 Transform:
   m_ObjectHideFlags: 0
@@ -13856,6 +13856,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 645080018}
+    - target: {fileID: 5197652896689982183, guid: f3b1d4783db860a4894a28bf7748f3ad, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197652896689982183, guid: f3b1d4783db860a4894a28bf7748f3ad, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6252217822349734213, guid: f3b1d4783db860a4894a28bf7748f3ad, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.6423855
@@ -13894,6 +13902,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6252217822349734213, guid: f3b1d4783db860a4894a28bf7748f3ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814660676333722227, guid: f3b1d4783db860a4894a28bf7748f3ad, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814660676333722227, guid: f3b1d4783db860a4894a28bf7748f3ad, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814660676333722227, guid: f3b1d4783db860a4894a28bf7748f3ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8317265522493500274, guid: f3b1d4783db860a4894a28bf7748f3ad, type: 3}

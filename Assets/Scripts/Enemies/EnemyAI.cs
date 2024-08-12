@@ -30,6 +30,9 @@ public class EnemyAI : MonoBehaviour
     private bool jumpEnabled = true;
     [SerializeField]
     private bool directionLookEnabled = true;
+    
+
+    
 
     // --- PRIVATES --- //
     private bool foundTarget;
@@ -39,6 +42,10 @@ public class EnemyAI : MonoBehaviour
     private int currentWaypoint = 0;
     private bool lostTarget = false;
     private EnemyMovement _movement;
+
+
+    [SerializeField]
+    private Transform originPoint;
 
     private void Start()
     {
@@ -50,6 +57,8 @@ public class EnemyAI : MonoBehaviour
 
     public void FoundTarget(Transform target)
     {
+        seeker.CancelCurrentPathRequest();
+        lostTarget = false;
         this.target = target;
         foundTarget = true;
     }
@@ -69,18 +78,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (followEnabled && foundTarget && seeker.IsDone())
         {
-            // -- If the enemy has lost the target, don't generate another path. Stop generating paths.
-            if (!lostTarget)
-            {
-                seeker.StartPath(rb.position, target.position, OnPathComplete);
-            }
-            else
-            {
-                // -- Reset Variables -- //
-                foundTarget = false;
-                lostTarget = false;
-                target = null;
-            }
+            seeker.StartPath(rb.position, target.position, OnPathComplete);
         }
     }
 
@@ -129,7 +127,13 @@ public class EnemyAI : MonoBehaviour
             path = p;
             currentWaypoint = 0;
         }
+        if (lostTarget)
+        {
+            foundTarget = false;
+            _movement.ChillDownAnim();
+        }
     }
+   
 }
 
 

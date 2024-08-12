@@ -7,12 +7,7 @@ public class GeneralTools : SingletonClass<GeneralTools>
 {
     public IEnumerator Timer(float time, Action callback)
     {
-        while (time > 0)
-        {
-            time -= Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(time);
         callback?.Invoke();
-       
     }
 }

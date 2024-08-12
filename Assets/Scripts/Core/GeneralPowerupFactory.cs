@@ -37,7 +37,7 @@ public class GeneralPowerupFactory : MonoBehaviour
     }
     public IPowerup GetPowerupByType(PowerupType type, Transform position)
     {
-        Debug.Log(type);
+        //Debug.Log(type);
         if (_powerupsByType.TryGetValue(type, out IPowerupFactory factory))
         {
             //Debug.Log(type);

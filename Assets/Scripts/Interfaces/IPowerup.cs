@@ -8,4 +8,5 @@ using UnityEngine;
 public interface IPowerup
 {
     public void ActivatePowerup(Player player);
+    public void DisablePowerup(float timer);
 }
