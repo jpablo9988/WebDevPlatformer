@@ -7,47 +7,24 @@ public class Inventory
 {
     public event EventHandler OnPowerUpListChanged;
 
-    private List<PowerUp> powerUpList;
+    private List<IPowerup> powerUpList;
     
     public Inventory()
     {
-        powerUpList = new List<PowerUp>();
-
-        AddItem(new PowerUp { powerUpType = PowerUp.PowerupType.FasterMovement, amount = 1 });
-        AddItem(new PowerUp { powerUpType = PowerUp.PowerupType.SmallHealth, amount = 1 });
-        AddItem(new PowerUp { powerUpType = PowerUp.PowerupType.BigHealth, amount = 1 });
-
-        Debug.Log(powerUpList.Count);
+        powerUpList = new List<IPowerup>();
     }
 
-    public void AddItem(PowerUp powerUp)
+    public void AddItem(IPowerup powerUp)
     {
-        if (powerUp.IsStackable())
-        {
-            bool powerUpAlreadyInInventory = false;
-            foreach (PowerUp inventoryPowerUp in powerUpList)
-            {
-                if(inventoryPowerUp.powerUpType == powerUp.powerUpType)
-                {
-                    inventoryPowerUp.amount += powerUp.amount;
-;    
-                }
-            }
-            if (!powerUpAlreadyInInventory)
-            {
-                powerUpList.Add(powerUp);
-            }
-        }
-        else
-        {
-            powerUpList.Add(powerUp);
-        }
-        
+        powerUpList.Add(powerUp);        
         OnPowerUpListChanged?.Invoke(this, EventArgs.Empty);
-
     }
-
-    public List<PowerUp> GetPowerUpList()
+    public void RemoveItem(IPowerup item)
+    {
+        powerUpList.Remove(item);
+        OnPowerUpListChanged?.Invoke(this, EventArgs.Empty);
+    }
+    public List<IPowerup> GetPowerUpList()
     {
         return powerUpList;
     }

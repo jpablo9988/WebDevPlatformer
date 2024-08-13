@@ -27,7 +27,8 @@ public abstract class AbstractPowerup : MonoBehaviour, IPowerup
             // In here, instead of activating the powerup, store it on your inventory. (This is up to you)
             // If it were me, have an inventoryManager singleton where you can add this TYPE of powerup to it.
             // On the inventory, call upon ActivatePowerup when the user selects a powerup and uses it with a button or smtn
-            ActivatePowerup(player);
+            //ActivatePowerup(player);
+            UI_Inventory.Instance.AddItem(this);
             if (!respawns)
             {
                 DisablePowerup();
@@ -48,12 +49,22 @@ public abstract class AbstractPowerup : MonoBehaviour, IPowerup
         }
         else
         {
-            Destroy(this.gameObject);
+            sprite.enabled = false;
+            currCollier.enabled = false;
         }
     }
     protected virtual void EnablePowerup()
     {
         sprite.enabled = true;
         currCollier.enabled = true;
+    }
+
+    public virtual Sprite GetSprite()
+    {
+        return this.sprite.sprite;
+    }
+    public virtual Color GetSpriteColor()
+    {
+        return this.sprite.color;
     }
 }

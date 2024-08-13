@@ -16,6 +16,4 @@ public class PowerUpAssets : MonoBehaviour
     public Sprite smallHealthSprite;
     public Sprite bigHealthSprite;
     public Sprite fasterMovementSprite;
-
-
 }

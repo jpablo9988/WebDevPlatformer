@@ -9,4 +9,7 @@ public interface IPowerup
 {
     public void ActivatePowerup(Player player);
     public void DisablePowerup(float timer);
+    public Sprite GetSprite();
+    public Color GetSpriteColor();
+
 }

@@ -24,7 +24,7 @@ public class PowerupManager : MonoBehaviour
         
         for(int i = 0; i < powerPositions.Count; i++)
         {
-            PowerUp.PowerupType randomType = (PowerUp.PowerupType)UnityEngine.Random.Range(0, NoPowerups);
+            PowerupType randomType = (PowerupType)UnityEngine.Random.Range(0, NoPowerups);
             powerupFactory.GetPowerupByType(randomType, powerPositions[i]);
         }
     }

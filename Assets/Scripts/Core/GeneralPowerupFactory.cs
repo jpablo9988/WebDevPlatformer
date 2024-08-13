@@ -14,12 +14,12 @@ public class GeneralPowerupFactory : MonoBehaviour
     [Header("Powerup References")]
     [Tooltip("List of powerup types. Needs to be synced with its factory list down below in which order matters.")]
     [SerializeField]
-    private List<PowerUp.PowerupType> _powerups;
+    private List<PowerupType> _powerups;
     [Tooltip("List of powerup factories. They're in charge of creating a powerup.")]
     [SerializeField]
     private List<PowerupFactory> _factories;
 
-    private Dictionary<PowerUp.PowerupType, IPowerupFactory> _powerupsByType;
+    private Dictionary<PowerupType, IPowerupFactory> _powerupsByType;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class GeneralPowerupFactory : MonoBehaviour
     }
     public void InitializeDictionary()
     {
-        _powerupsByType = new Dictionary<PowerUp.PowerupType, IPowerupFactory>();
+        _powerupsByType = new Dictionary<PowerupType, IPowerupFactory>();
         //Loops through both lists until whichever has its minimum cap. 
         for (int i = 0; i < Mathf.Min(_powerups.Count, _factories.Count); i++) 
         {
@@ -35,7 +35,7 @@ public class GeneralPowerupFactory : MonoBehaviour
             _powerupsByType[_powerups[i]] = _factories[i];
         }
     }
-    public IPowerup GetPowerupByType(PowerUp.PowerupType type, Transform position)
+    public IPowerup GetPowerupByType(PowerupType type, Transform position)
     {
         //Debug.Log(type);
         if (_powerupsByType.TryGetValue(type, out IPowerupFactory factory))
