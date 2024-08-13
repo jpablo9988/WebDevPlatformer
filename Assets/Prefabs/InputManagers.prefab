@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 0}
-  mobileControls: 0
+  mobileControls: 1
 --- !u!114 &2087438231153041229
 MonoBehaviour:
   m_ObjectHideFlags: 0
