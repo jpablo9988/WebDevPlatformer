@@ -25,6 +25,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Get Hit Settings (Impulse)")]
     [SerializeField]
     private float xMovementDeactiveTimer = 0.8f;
+    [Header("Physics Properties")]
+    [SerializeField]
+    private PhysicsMaterial2D _frictionlessMat;
+    [SerializeField]
+    private PhysicsMaterial2D _frictionfulMat;
 
     private bool deactivateMovement = false;
 
@@ -39,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnLanding()
     {
+        player.sharedMaterial = this._frictionfulMat;
         isGrounded = true;
         animator.SetBool("IsGrounded", isGrounded);
     }
@@ -63,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
                     Flip();
                 }
                 player.velocity = new Vector2(direction * speed, player.velocity.y);
+                QuestsManager.Instance.ProgressQuests(QuestActivationType.MOVEMENT_INPUT);
 
             }
             else if (direction < 0f)
@@ -73,11 +80,8 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 player.velocity = new Vector2(direction * speed, player.velocity.y);
+                QuestsManager.Instance.ProgressQuests(QuestActivationType.MOVEMENT_INPUT);
 
-            }
-            else
-            {
-                //player.velocity = new Vector2(0, player.velocity.y);
             }
         }
     }
@@ -89,6 +93,9 @@ public class PlayerMovement : MonoBehaviour
             player.velocity = new Vector2(player.velocity.x, jumpSpeed);
             animator.SetBool("IsGrounded", false);
             GameMaster.Instance.PlaySfx(jumpSfx);
+            player.sharedMaterial = this._frictionlessMat;
+            QuestsManager.Instance.ProgressQuests(QuestActivationType.JUMP_INPUT);
+            
         }
     }
     public void ResetSpeed()

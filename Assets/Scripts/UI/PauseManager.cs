@@ -7,8 +7,13 @@ public class PauseManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject pauseMenu;
+    [SerializeField]
+    private GameObject questsMenu;
+
+    private GameObject currentOpenedPanel;
 
     public bool IsPaused { get; set; }
+    public bool QuestPaused { get; set; }
     private void Awake()
     {
         IsPaused = false;    }
@@ -16,11 +21,29 @@ public class PauseManager : MonoBehaviour
     {
         PauseGame(IsPaused);
     }
+    public void PauseGameWithMenu(GameObject panel)
+    {
+
+        IsPaused = !IsPaused;
+        if (IsPaused)
+        {
+            currentOpenedPanel = panel;
+        }
+        //Activate UI Panel here: 
+        currentOpenedPanel.SetActive(IsPaused);
+        //Pause functions here:
+        PauseGame(IsPaused);
+    }
     public void PauseGameWithMenu()
     {
+
         IsPaused = !IsPaused;
+        if (IsPaused)
+        {
+            currentOpenedPanel = this.pauseMenu;
+        }
         //Activate UI Panel here: 
-        pauseMenu.SetActive(IsPaused);
+        currentOpenedPanel.SetActive(IsPaused);
         //Pause functions here:
         PauseGame(IsPaused);
     }

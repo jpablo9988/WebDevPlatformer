@@ -5,19 +5,22 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player Attributes")]
     [SerializeField]
     private int maxHealthPoints = 3;
-    [SerializeField]
-    private Image healthFill;
-    [SerializeField]
-    private PlayerMovement movementManager;
     [SerializeField]
     private float invisiblityTimer = 1.0f;
     [SerializeField]
     private float alphaWhenHit = 0.5f;
-
+    [Header("Dependencies")]
+    [SerializeField]
+    private Image healthFill;
+    [SerializeField]
+    private PlayerMovement movementManager;
+    
     private int currHealthPoints;
     private bool isInvinsible = false;
+
 
 
     private void Start()
